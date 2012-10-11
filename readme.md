@@ -1,3 +1,4 @@
-# SkypeLight
+SkypeLight
+==========
 
-This project is intended to integrate the BusyLight UC control to read call statuses from Skype.
+A helper application for using a BusyLight UC for indicating skype call status
