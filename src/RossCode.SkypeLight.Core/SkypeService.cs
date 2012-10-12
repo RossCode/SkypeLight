@@ -15,6 +15,12 @@ namespace RossCode.SkypeLight.Core
             }
             skype.Attach(6);
 
+            SetCallStatus(onCall, notOnCall, skype);
+            skype.CallStatus += (call, status) => SetCallStatus(onCall, notOnCall, skype);
+        }
+
+        private static void SetCallStatus(Action onCall, Action notOnCall, Skype skype)
+        {
             if (skype.ActiveCalls.Count > 0)
             {
                 onCall();
@@ -23,17 +29,6 @@ namespace RossCode.SkypeLight.Core
             {
                 notOnCall();
             }
-            skype.CallStatus += (call, status) =>
-                {
-                    if (skype.ActiveCalls.Count > 0)
-                    {
-                        onCall();
-                    }
-                    else
-                    {
-                        notOnCall();
-                    }
-                };
         }
     }
 }
