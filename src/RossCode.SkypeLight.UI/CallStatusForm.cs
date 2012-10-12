@@ -19,6 +19,12 @@ namespace RossCode.SkypeLight.UI
             DomainEvents.Register<CallStatusChanged>(changed => SetImagesFor(changed.CallStatus));
         }
 
+        protected override void OnSizeChanged(System.EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            Height = Width;
+        }
+
         private void SetImagesFor(CallStatus status)
         {
             if (status == CallStatus.OnCall)
