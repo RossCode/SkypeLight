@@ -1,21 +1,36 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using RossCode.SkypeLight.Core.Eventing;
 using RossCode.SkypeLight.Core.Eventing.Events;
+using RossCode.SkypeLight.UI.Properties;
 
 namespace RossCode.SkypeLight.UI
 {
     public partial class CallStatusForm : Form
     {
-        public CallStatusForm()
+        public CallStatusForm(CallStatus status)
         {
             InitializeComponent();
+            SetImagesFor(status);
         }
 
         protected override void OnLoad(System.EventArgs e)
         {
             base.OnLoad(e);
-            DomainEvents.Register<CallStatusChanged>(changed => BackColor = changed.CallStatus == CallStatus.OnCall ? Color.Red : Color.Green);
+            DomainEvents.Register<CallStatusChanged>(changed => SetImagesFor(changed.CallStatus));
+        }
+
+        private void SetImagesFor(CallStatus status)
+        {
+            if (status == CallStatus.OnCall)
+            {
+                Icon = Resources.OnCallStatusIcon;
+                pbCallStatus.Image = Resources.OnCallStatusImage;
+            }
+            else
+            {
+                Icon = Resources.NoCallStatusIcon;
+                pbCallStatus.Image = Resources.NoCallStatusImage;
+            }
         }
     }
 }
