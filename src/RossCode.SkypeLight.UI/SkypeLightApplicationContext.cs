@@ -1,4 +1,6 @@
 ﻿using System.Windows.Forms;
+using RossCode.SkypeLight.Core;
+using RossCode.SkypeLight.Core.Adapters;
 using RossCode.SkypeLight.Core.Eventing;
 using RossCode.SkypeLight.Core.Eventing.Events;
 using RossCode.SkypeLight.Core.Factories;
@@ -14,6 +16,7 @@ namespace RossCode.SkypeLight.UI
 		private MenuItem exitContextMenuItem;
 		private MenuItem showCallStatusMenuItem;
         private CallStatus callStatus;
+        private BusylightService busylightService;
 
         public SkypeLightApplicationContext()
         {
@@ -61,6 +64,12 @@ namespace RossCode.SkypeLight.UI
             exitContextMenuItem.Click += (sender, e) => ExitThread();
         }
 
+        protected override void ExitThreadCore()
+        {
+            busylightService.Dispose();
+            base.ExitThreadCore();
+        }
+
         private void ShowCallStatusView()
         {
             new CallStatusForm(callStatus).Show();
@@ -81,6 +90,9 @@ namespace RossCode.SkypeLight.UI
                         ? Resources.NoCallStatusIcon 
                         : Resources.OnCallStatusIcon;
                 });
+
+            busylightService = new BusylightService(new BusylightAdapter());
+            busylightService.Initialize();
         }
     }
 }

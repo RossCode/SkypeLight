@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BusyLightHIDCommunications">
+      <HintPath>..\..\lib\BusyLightHIDCommunications.dll</HintPath>
+    </Reference>
+    <Reference Include="LinkLampConfiguration">
+      <HintPath>..\..\lib\LinkLampConfiguration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\BusylightAdapter.cs" />
     <Compile Include="Adapters\Skype4ComAdapter.cs" />
+    <Compile Include="BusylightService.cs" />
     <Compile Include="Eventing\DomainEvent.cs" />
     <Compile Include="Eventing\Events\CallStatusChanged.cs" />
     <Compile Include="Factories\ServiceFactory.cs" />
