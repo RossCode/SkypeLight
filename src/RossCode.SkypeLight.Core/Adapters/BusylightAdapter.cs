@@ -5,16 +5,15 @@ namespace RossCode.SkypeLight.Core.Adapters
 {
     public interface IBusylightAdapter : IDisposable
     {
-        bool TurnOff();
-        bool TurnGreen();
-        bool TurnBlue();
-        bool TurnRed();
+        void TurnGreen();
+        void TurnBlue();
+        void TurnRed();
     }
 
     public class BusylightAdapter : IBusylightAdapter
     {
         private UsbDevice busylight;
-        private bool isConnected = false;
+        private bool isConnected;
 
         private bool Connect()
         {
@@ -24,52 +23,53 @@ namespace RossCode.SkypeLight.Core.Adapters
             return busylight.IsDeviceAttached;
         }
 
-        public bool TurnOff()
+        private void TurnOff()
         {
-            if (!isConnected) Connect();
+            if (!isConnected) { if (!Connect()) return;
+            }
             var color = new LinkLampConfiguration.Color
                 {
                     Red = 0, 
                     Blue = 0, 
                     Green = 0
                 };
-            return busylight.Light(color);
+            busylight.Light(color);
         }
 
-        public bool TurnGreen()
+        public void TurnGreen()
         {
-            if (!isConnected) Connect();
+            if (!isConnected) { if (!Connect()) return; }
             var color = new LinkLampConfiguration.Color
                 {
                     Red = 0, 
                     Blue = 0, 
                     Green = 255
                 };
-            return busylight.Light(color);
+            busylight.Light(color);
         }
 
-        public bool TurnBlue()
+        public void TurnBlue()
         {
-            if (!isConnected) Connect();
+            if (!isConnected) { if (!Connect()) return; }
             var color = new LinkLampConfiguration.Color
                 {
                     Red = 0, 
                     Blue = 255, 
                     Green = 0
                 };
-            return busylight.Light(color);
+            busylight.Light(color);
         }
 
-        public bool TurnRed()
+        public void TurnRed()
         {
-            if (!isConnected) Connect();
+            if (!isConnected) { if (!Connect()) return; }
             var color = new LinkLampConfiguration.Color
                 {
                     Red = 255, 
                     Blue = 0, 
                     Green = 0
                 };
-            return busylight.Light(color);
+            busylight.Light(color);
         }
 
         public void Dispose()
