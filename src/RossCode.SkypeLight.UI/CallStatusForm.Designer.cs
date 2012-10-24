@@ -49,7 +49,7 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.pbCallStatus);
             this.Name = "CallStatusForm";
-            this.Text = "CallStatusForm";
+            this.Text = "SkypeLight";
             ((System.ComponentModel.ISupportInitialize)(this.pbCallStatus)).EndInit();
             this.ResumeLayout(false);
 
