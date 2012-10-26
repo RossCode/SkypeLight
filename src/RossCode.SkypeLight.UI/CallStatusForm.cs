@@ -27,7 +27,7 @@ namespace RossCode.SkypeLight.UI
 
         private void SetImagesFor(CallStatus status)
         {
-            if (status == CallStatus.OnCall)
+            if (status == CallStatus.OnAudioCall)
             {
                 Icon = Resources.OnCallStatusIcon;
                 pbCallStatus.Image = Resources.OnCallStatusImage;

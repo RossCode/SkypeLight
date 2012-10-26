@@ -2,8 +2,10 @@
 {
     public enum CallStatus
     {
-        OnCall,
-        NotOnCall
+        NotOnCall,
+        Ringing,
+        OnAudioCall,
+        OnVideoCall
     }
     
     public class CallStatusChanged

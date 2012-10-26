@@ -32,7 +32,31 @@ namespace RossCode.SkypeLight.Core.Adapters
 
         private void SetCallStatus()
         {
-            DomainEvents.Raise(new CallStatusChanged(skype.ActiveCalls.Count > 0 ? CallStatus.OnCall : CallStatus.NotOnCall));
+            var callStatus = CallStatus.NotOnCall;
+            foreach (var item in skype.ActiveCalls)
+            {
+
+                if (item is Call)
+                {
+                    var call = item as Call;
+
+                    if (call.Status == TCallStatus.clsInProgress && (callStatus != CallStatus.OnVideoCall && callStatus != CallStatus.Ringing ))
+                    {
+                        callStatus = CallStatus.OnAudioCall;
+                        if (call.VideoStatus == TCallVideoStatus.cvsBothEnabled || call.VideoStatus == TCallVideoStatus.cvsReceiveEnabled || call.VideoStatus == TCallVideoStatus.cvsSendEnabled)
+                        {
+                            callStatus = CallStatus.OnVideoCall;
+                        }
+                    }
+                    if (call.Status == TCallStatus.clsRinging)
+                    {
+                        callStatus = CallStatus.Ringing;
+                        break;
+                    }
+                }
+            }
+
+            DomainEvents.Raise(new CallStatusChanged(callStatus));
         }
 
     }

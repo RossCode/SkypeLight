@@ -8,6 +8,7 @@ namespace RossCode.SkypeLight.Core.Adapters
         void TurnGreen();
         void TurnBlue();
         void TurnRed();
+        void TurnYellow();
     }
 
     public class BusylightAdapter : IBusylightAdapter
@@ -42,6 +43,18 @@ namespace RossCode.SkypeLight.Core.Adapters
             var color = new LinkLampConfiguration.Color
                 {
                     Red = 0, 
+                    Blue = 0, 
+                    Green = 255
+                };
+            busylight.Light(color);
+        }
+
+        public void TurnYellow()
+        {
+            if (!isConnected) { if (!Connect()) return; }
+            var color = new LinkLampConfiguration.Color
+                {
+                    Red = 255, 
                     Blue = 0, 
                     Green = 255
                 };
