@@ -25,7 +25,7 @@ namespace RossCode.SkypeLight.Core.Adapters
             busylight.FindTargetDevice();
             isConnected = true;
 
-            StartTimer(30);
+            StartTimer(25);
 
             return busylight.IsDeviceAttached;
         }
