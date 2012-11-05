@@ -9,7 +9,7 @@ namespace RossCode.SkypeLight.Core
     public class BusylightService : IDisposable
     {
         private readonly IBusylightAdapter busylightAdapter;
-        private IDictionary<CallStatus, Action<IBusylightAdapter>> setBusylightStatus = new Dictionary<CallStatus, Action<IBusylightAdapter>>
+        private readonly IDictionary<CallStatus, Action<IBusylightAdapter>> setBusylightStatus = new Dictionary<CallStatus, Action<IBusylightAdapter>>
             {
                 { CallStatus.NotOnCall, adapter => adapter.TurnGreen() },
                 { CallStatus.Ringing, adapter => adapter.TurnYellow() },

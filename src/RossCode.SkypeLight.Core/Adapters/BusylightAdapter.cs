@@ -73,13 +73,13 @@ namespace RossCode.SkypeLight.Core.Adapters
         public void TurnYellow()
         {
             if (!isConnected) { if (!Connect()) return; }
-            var color = new LinkLampConfiguration.Color
+            currentColor = new LinkLampConfiguration.Color
                 {
                     Red = 255, 
                     Blue = 0, 
                     Green = 255
                 };
-            busylight.Light(color);
+            busylight.Light(currentColor);
         }
 
         public void TurnBlue()
