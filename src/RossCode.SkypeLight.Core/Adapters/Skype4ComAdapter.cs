@@ -48,7 +48,7 @@ namespace RossCode.SkypeLight.Core.Adapters
                             callStatus = CallStatus.OnVideoCall;
                         }
                     }
-                    if (call.Status == TCallStatus.clsRinging)
+                    if (call.Status == TCallStatus.clsRinging || call.Status == TCallStatus.clsRouting)
                     {
                         callStatus = CallStatus.Ringing;
                         break;
