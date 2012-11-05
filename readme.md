@@ -12,3 +12,6 @@ SkypeLight uses the Skype API available through the application, so Skype must b
 work. When SkypeLight is started, it will attempt to retrieve the call status from Skype. To make this work, 
 you must grant access to SkypeLight through Skype. Once done, SkypeLight will work with Skype. This only 
 has to be done once, although if you upgrade SkypeLight, Skype will request permission again.
+
+If Skype does not prompt you to allow SkypeLight permission when running SkypeLight, you will need to install
+[Skype4COM](http://developer.skype.com/accessories/skype4com) first. 
