@@ -14,17 +14,19 @@ namespace RossCode.SkypeLight.Core.Adapters
     public class BusylightAdapter : IBusylightAdapter
     {
         private BusylightController busylight;
+        private bool isConnected;
         private BusylightColor currentColor;
 
-        private bool Connect()
+        private void Connect()
         {
+            if (isConnected) return;
             busylight = new BusylightController(1240, 63560);
-            return true;
+            isConnected = true;
         }
 
         private void ChangeColor()
         {
-            if (!Connect()) return;
+            Connect();
             if (currentColor != null)
             {
                 busylight.Light(currentColor);
@@ -68,8 +70,12 @@ namespace RossCode.SkypeLight.Core.Adapters
 
         public void Dispose()
         {
-            TurnOff();
-            busylight = null;
+            if (isConnected)
+            {
+                TurnOff();
+                busylight = null;
+            }
+            isConnected = false;
         }
     }
 }
