@@ -30,11 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BusyLightHIDCommunications">
-      <HintPath>..\..\lib\BusyLightHIDCommunications.dll</HintPath>
-    </Reference>
-    <Reference Include="LinkLampConfiguration">
-      <HintPath>..\..\lib\LinkLampConfiguration.dll</HintPath>
+    <Reference Include="Busylight.Sdk">
+      <HintPath>..\..\lib\Busylight.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

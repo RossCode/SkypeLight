@@ -1,6 +1,6 @@
 ﻿using System;
-using BusyLightHIDCommunications;
 using System.Timers;
+using Plenom.Components.Busylight.Sdk;
 
 namespace RossCode.SkypeLight.Core.Adapters
 {
@@ -14,20 +14,19 @@ namespace RossCode.SkypeLight.Core.Adapters
 
     public class BusylightAdapter : IBusylightAdapter
     {
-        private UsbDevice busylight;
+        private BusylightController busylight;
         private bool isConnected;
-        private LinkLampConfiguration.Color currentColor;
+        private BusylightColor currentColor;
         private Timer timer;
 
         private bool Connect()
         {
-            busylight = new UsbDevice(1240, 63560);
-            busylight.FindTargetDevice();
+            busylight = new BusylightController(1240, 63560);
             isConnected = true;
 
             StartTimer(25);
 
-            return busylight.IsDeviceAttached;
+            return true;
         }
 
         private void StartTimer(int intervalInSeconds)
@@ -48,61 +47,36 @@ namespace RossCode.SkypeLight.Core.Adapters
 
         private void TurnOff()
         {
-            if (!isConnected) { if (!Connect()) return; }
-            currentColor = new LinkLampConfiguration.Color
+            currentColor = new BusylightColor
                 {
-                    Red = 0, 
-                    Blue = 0, 
-                    Green = 0
+                    RedRgbValue = 0, 
+                    BlueRgbValue = 0, 
+                    GreenRgbValue = 0
                 };
             ChangeColor();
         }
 
         public void TurnGreen()
         {
-            if (!isConnected) { if (!Connect()) return; }
-            currentColor = new LinkLampConfiguration.Color
-                {
-                    Red = 0, 
-                    Blue = 0, 
-                    Green = 255
-                };
+            currentColor = BusylightColor.Green;
             ChangeColor();
         }
 
         public void TurnYellow()
         {
-            if (!isConnected) { if (!Connect()) return; }
-            currentColor = new LinkLampConfiguration.Color
-                {
-                    Red = 255, 
-                    Blue = 0, 
-                    Green = 255
-                };
-            busylight.Light(currentColor);
+            currentColor = BusylightColor.Yellow;
+            ChangeColor();
         }
 
         public void TurnBlue()
         {
-            if (!isConnected) { if (!Connect()) return; }
-            currentColor = new LinkLampConfiguration.Color
-                {
-                    Red = 0, 
-                    Blue = 255, 
-                    Green = 0
-                };
+            currentColor = BusylightColor.Blue;
             ChangeColor();
         }
 
         public void TurnRed()
         {
-            if (!isConnected) { if (!Connect()) return; }
-            currentColor = new LinkLampConfiguration.Color
-                {
-                    Red = 255, 
-                    Blue = 0, 
-                    Green = 0
-                };
+            currentColor = BusylightColor.Red;
             ChangeColor();
         }
 
