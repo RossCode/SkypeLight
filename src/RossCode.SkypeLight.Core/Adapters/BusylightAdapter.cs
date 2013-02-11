@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Timers;
 using Plenom.Components.Busylight.Sdk;
 
 namespace RossCode.SkypeLight.Core.Adapters
@@ -15,30 +14,17 @@ namespace RossCode.SkypeLight.Core.Adapters
     public class BusylightAdapter : IBusylightAdapter
     {
         private BusylightController busylight;
-        private bool isConnected;
         private BusylightColor currentColor;
-        private Timer timer;
 
         private bool Connect()
         {
             busylight = new BusylightController(1240, 63560);
-            isConnected = true;
-
-            StartTimer(25);
-
             return true;
-        }
-
-        private void StartTimer(int intervalInSeconds)
-        {
-            timer = new Timer(intervalInSeconds * 1000);
-            timer.Elapsed += (sender, args) => ChangeColor();
-            timer.Start();
         }
 
         private void ChangeColor()
         {
-            if (!isConnected) { if (!Connect()) return; }
+            if (!Connect()) return;
             if (currentColor != null)
             {
                 busylight.Light(currentColor);
@@ -82,15 +68,8 @@ namespace RossCode.SkypeLight.Core.Adapters
 
         public void Dispose()
         {
-            timer.Stop();
-            timer = null;
-
-            if (isConnected)
-            {
-                TurnOff();
-                busylight = null;
-            }
-            isConnected = false;
+            TurnOff();
+            busylight = null;
         }
     }
 }
