@@ -20,7 +20,7 @@ namespace RossCode.SkypeLight.Core.Adapters
         private void Connect()
         {
             if (isConnected) return;
-            busylight = new BusylightController(1240, 63560);
+            busylight = new BusylightUcController();
             isConnected = true;
         }
 
