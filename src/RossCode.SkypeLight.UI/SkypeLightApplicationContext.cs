@@ -91,6 +91,17 @@ namespace RossCode.SkypeLight.UI
                         : Resources.OnCallStatusIcon;
                 });
 
+            DomainEvents.Register<ToggleStatusRequested>(args => {
+                if (callStatus == CallStatus.NotOnCall)
+                {
+                    DomainEvents.Raise(new CallStatusChanged(CallStatus.OnAudioCall));
+                } 
+                else if (callStatus == CallStatus.OnAudioCall)
+                {
+                    DomainEvents.Raise(new CallStatusChanged(CallStatus.NotOnCall));
+                }
+            });
+
             busylightService = new BusylightService(new BusylightAdapter());
             busylightService.Initialize();
         }

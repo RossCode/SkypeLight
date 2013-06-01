@@ -11,6 +11,12 @@ namespace RossCode.SkypeLight.UI
         {
             InitializeComponent();
             SetImagesFor(status);
+            pbCallStatus.Click += (sender, args) => ToggleStatus();
+        }
+
+        private void ToggleStatus()
+        {
+            DomainEvents.Raise(new ToggleStatusRequested());
         }
 
         protected override void OnLoad(System.EventArgs e)
